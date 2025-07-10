@@ -3,6 +3,17 @@ require([
     "esri/rest/support/AttachmentQuery",
     "esri/rest/support/Query"
 ], function(FeatureLayer, AttachmentQuery, Query) {
+
+    // ADD THESE LINES AT THE VERY TOP (before state management)
+    // Configure trusted servers for CORS
+    esriConfig.request.trustedServers.push("https://services.arcgis.com");
+    esriConfig.request.trustedServers.push("https://www.arcgis.com");
+    esriConfig.request.trustedServers.push("https://services1.arcgis.com");
+    esriConfig.request.trustedServers.push("https://services2.arcgis.com");
+    esriConfig.request.trustedServers.push("https://services3.arcgis.com");
+    // Add your organization's ArcGIS Online URL if different
+    esriConfig.request.trustedServers.push("https://maps.srk.com");
+
     
     // State management
     let currentFeatureId = null;
