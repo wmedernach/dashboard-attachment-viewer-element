@@ -260,4 +260,24 @@ require([
     } else {
         init();
     }
+    // Listen for URL parameter changes from Dashboard
+    window.addEventListener('hashchange', function() {
+        console.log('Hash changed:', window.location.hash);
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const featureId = params.get('objectid') || params.get('OBJECTID') || params.get('FID');
+        if (featureId) {
+          selectFeature(parseInt(featureId, 10));
+        }
+    });
+    
+    // Also check on initial load
+    if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const featureId = params.get('objectid') || params.get('OBJECTID') || params.get('FID');
+        if (featureId) {
+          selectFeature(parseInt(featureId, 10));
+        }
+    }
 });
