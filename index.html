@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>ArcGIS Dashboard - Attachment Viewer</title>
-
-  <!-- Calcite Design System -->
-  <script type="module" src="https://js.arcgis.com/calcite-components/1.4.2/calcite.esm.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/1.4.2/calcite.css" />
-
-  <!-- ArcGIS Maps SDK for JavaScript -->
-  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
-  <script src="https://js.arcgis.com/4.29/"></script>
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Attachment Viewer</title>
+    
+    <!-- ArcGIS Maps SDK for JavaScript CSS -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- ArcGIS Maps SDK for JavaScript -->
+    <script src="https://js.arcgis.com/4.28/"></script>
 </head>
 <body>
-  <div id="root">
-    <div id="info-panel">
-        <calcite-label>Waiting for feature selection...</calcite-label>
+    <div id="app-container">
+        <!-- Loading state -->
+        <div id="loading-container" class="state-container">
+            <div class="spinner"></div>
+            <p>Loading attachment...</p>
+        </div>
+        
+        <!-- No selection state -->
+        <div id="no-selection-container" class="state-container">
+            <svg class="placeholder-icon" viewBox="0 0 24 24" width="48" height="48">
+                <path d="M21 3H3C2 3 1 4 1 5V19C1 20 2 21 3 21H21C22 21 23 20 23 19V5C23 4 22 3 21 3M21 19H3V5H21V19Z"/>
+                <path d="M8.5 13.5L11 16.5L14.5 12L19 18H5L8.5 13.5Z"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+            </svg>
+            <p>Select a feature to view attachment</p>
+        </div>
+        
+        <!-- Error state -->
+        <div id="error-container" class="state-container">
+            <svg class="error-icon" viewBox="0 0 24 24" width="48" height="48">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            <p id="error-message">Error loading attachment</p>
+        </div>
+        
+        <!-- Attachment display -->
+        <div id="attachment-container" class="state-container">
+            <div id="image-wrapper">
+                <img id="attachment-image" alt="Attachment">
+            </div>
+            <div id="caption" class="caption"></div>
+        </div>
     </div>
-    <div id="attachment-container"></div>
-  </div>
-  <script src="main.js"></script>
+    
+    <!-- Modal for enlarged view -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+            </div>
+            <div class="modal-body">
+                <img id="modal-image" alt="Enlarged attachment">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Configuration and app scripts -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
