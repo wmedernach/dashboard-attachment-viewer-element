@@ -21,7 +21,7 @@ require([
 
   // Authenticate with ArcGIS Online
   const info = new OAuthInfo({
-      appId: "your-app-id", // Replace with your App ID
+      appId: "15RjJYb0MhyW47wP", // Replace with your App ID
       popup: false
   });
   esriId.registerOAuthInfos([info]);
