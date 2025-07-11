@@ -180,7 +180,16 @@ require([
         currentAttachment = attachment;
         
         // Set image source
-        attachmentImage.src = attachment.url;
+        const attachmentUrl = new URL(attachment.url);
+        if (attachmentUrl.searchParams.has('w')) {
+            attachmentUrl.searchParams.set('width', attachmentUrl.searchParams.get('w'));
+            attachmentUrl.searchParams.delete('w');
+        }
+        if (attachmentUrl.searchParams.has('h')) {
+            attachmentUrl.searchParams.set('height', attachmentUrl.searchParams.get('h'));
+            attachmentUrl.searchParams.delete('h');
+        }
+        attachmentImage.src = attachmentUrl.toString();
         attachmentImage.alt = attachment.name;
         
         // Set caption
