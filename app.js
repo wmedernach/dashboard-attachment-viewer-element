@@ -240,7 +240,16 @@ require([
     function openModal() {
         if (!currentAttachment) return;
         
-        modalImage.src = currentAttachment.url;
+        const modalAttachmentUrl = new URL(currentAttachment.url);
+        if (modalAttachmentUrl.searchParams.has('w')) {
+            modalAttachmentUrl.searchParams.set('width', modalAttachmentUrl.searchParams.get('w'));
+            modalAttachmentUrl.searchParams.delete('w');
+        }
+        if (modalAttachmentUrl.searchParams.has('h')) {
+            modalAttachmentUrl.searchParams.set('height', modalAttachmentUrl.searchParams.get('h'));
+            modalAttachmentUrl.searchParams.delete('h');
+        }
+        modalImage.src = modalAttachmentUrl.toString();
         modalTitle.textContent = currentAttachment.name;
         modal.style.display = 'flex';
         
